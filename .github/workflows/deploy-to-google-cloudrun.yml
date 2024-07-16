@@ -37,6 +37,17 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           credentials_file_path: ${{ steps.auth-to-google-cloud.outputs.credentials_file_path }}
 
+      - name: Output environment variables
+        run: |
+          echo "PROJECT_ID=${{ env.PROJECT_ID }}"
+          echo "SERVICE=${{ env.SERVICE }}"
+          echo "REGION=${{ env.REGION }}"
+          echo "GCP_SERVICE_ACCOUNT_EMAIL=${{ env.GCP_SERVICE_ACCOUNT_EMAIL }}"
+          echo "WORKLOAD_IDENTITY_PROVIDER=${{ env.WORKLOAD_IDENTITY_PROVIDER }}"
+
+      - name: Check credentials file
+        run: cat ${{ steps.auth-to-google-cloud.outputs.credentials_file_path }}
+
       - name: 'Build and push Docker image'
         run: |
           gcloud builds submit --verbosity=debug --tag gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}

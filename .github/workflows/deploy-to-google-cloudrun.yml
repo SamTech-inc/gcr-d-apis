@@ -12,7 +12,7 @@ env:
   WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }} # Update workload identity provider
 
 jobs:
-  deploy-to-development-cloudrun:
+  deploy-to-cloudrun:
     permissions:
       id-token: write
       contents: read
